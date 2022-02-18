@@ -1,0 +1,47 @@
+{
+  "name": "prisma-cursor-pagination",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Relay cursor pagination helpers for prisma.",
+  "author": "Mathieu Acthernoene <zoontek@gmail.com>",
+  "homepage": "https://github.com/zoontek/prisma-cursor-pagination#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zoontek/prisma-cursor-pagination.git"
+  },
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "prisma",
+    "relay",
+    "graphql",
+    "cursor",
+    "pagination",
+    "connection"
+  ],
+  "scripts": {
+    "build": "yarn clean && tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "format": "prettier '**/*' --ignore-unknown --write",
+    "tscheck": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepare": "yarn test && yarn build"
+  },
+  "prettier": {
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-organize-imports": "^2.3.4",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  }
+}
