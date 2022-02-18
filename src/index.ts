@@ -6,6 +6,9 @@ import {
   ParsePaginationArgsOptions,
 } from "./types";
 
+export * from "./errors";
+export * from "./types";
+
 const isNotNullish = <T>(value: T | null | undefined): value is T =>
   typeof value !== "undefined" && value !== null;
 
@@ -24,8 +27,8 @@ export const parsePaginationArgs = (
     }
 
     const cursor = isNotNullish(after) ? { id: after } : undefined;
-    const skip = isNotNullish(cursor) ? 1 : undefined; // prisma will include the cursor if skip: 1 is not set
     const take = first + 1; // include one extra item to set hasNextPage value
+    const skip = isNotNullish(cursor) ? 1 : undefined; // prisma will include the cursor if skip: 1 is not set
 
     return {
       findManyArgs: { cursor, skip, take },
@@ -56,8 +59,8 @@ export const parsePaginationArgs = (
     }
 
     const cursor = isNotNullish(before) ? { id: before } : undefined;
-    const skip = isNotNullish(cursor) ? 1 : undefined; // prisma will include the cursor if skip: 1 is not set
     const take = last + 1; // include one extra item to set hasPreviousPage value
+    const skip = isNotNullish(cursor) ? 1 : undefined; // prisma will include the cursor if skip: 1 is not set
 
     return {
       findManyArgs: { cursor, skip, take: -take },
@@ -95,6 +98,3 @@ export const parsePaginationArgs = (
     }),
   };
 };
-
-export * from "./errors";
-export * from "./types";

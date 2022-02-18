@@ -10,9 +10,11 @@ export type ParsePaginationArgsOptions = {
 };
 
 export type FindManyArgs = {
+  cursor?: {
+    id: string;
+  };
   skip?: number;
   take: number;
-  cursor?: { id: string };
 };
 
 export type Edge<T extends { id: string }> = {
