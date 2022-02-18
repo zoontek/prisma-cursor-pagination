@@ -1,4 +1,8 @@
-import { FindManyArgs, parsePaginationArgs } from "../src";
+import {
+  FindManyArgs,
+  InvalidPaginationError,
+  parsePaginationArgs,
+} from "../src";
 
 const USER_1 = {
   id: "6f8cb8fa-c9e5-4a54-b5a6-220debb92bd1",
@@ -111,6 +115,14 @@ describe("forward pagination", () => {
       },
     });
   });
+
+  test("throw error if first < 0", () => {
+    try {
+      parsePaginationArgs({ first: 0 });
+    } catch (error) {
+      expect(error).toBeInstanceOf(InvalidPaginationError);
+    }
+  });
 });
 
 describe("backward pagination", () => {
@@ -178,5 +190,13 @@ describe("backward pagination", () => {
         endCursor: USER_1.id,
       },
     });
+  });
+
+  test("throw error if last < 0", () => {
+    try {
+      parsePaginationArgs({ last: 0 });
+    } catch (error) {
+      expect(error).toBeInstanceOf(InvalidPaginationError);
+    }
   });
 });
