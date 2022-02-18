@@ -4,11 +4,9 @@ export class InvalidPaginationError extends Error {
     public connectionName?: string,
   ) {
     super(
-      [
-        "`" + argumentName + "`",
-        connectionName ? "on the `" + connectionName + "` connection" : "",
-        "cannot be less than zero.",
-      ].join(" "),
+      `\`${argumentName}\`` +
+        (connectionName ? " on the `" + connectionName + "` connection" : "") +
+        " cannot be less than zero.",
     );
 
     Object.setPrototypeOf(this, InvalidPaginationError.prototype);
