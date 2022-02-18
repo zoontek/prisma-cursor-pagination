@@ -36,7 +36,7 @@ const resolvers = {
 
 ## ⚙️ API
 
-### parsePaginationArgs
+### parsePaginationArgs(args, options)
 
 Take the query arguments and return prisma `findMany` arguments and a function to transform prisma result into a relay connection.
 
