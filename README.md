@@ -22,9 +22,24 @@ import { parsePaginationArgs } from "prisma-cursor-pagination";
 const resolvers = {
   Query: {
     projects: async (_, args) => {
-      const { findManyArgs, toConnection } = parsePaginationArgs(args); // parse pagination arguments (first: Int! & after: ID / last: Int! & before: ID)
+      // parse pagination arguments (first: Int! & after: ID / last: Int! & before: ID)
+      const { findManyArgs, toConnection } = parsePaginationArgs(args);
       const projects = await prisma.project.findMany(findManyArgs);
-      return toConnection(projects); // transform prisma result into a relay connection
+
+      // transform prisma result into a relay connection
+      return toConnection(projects);
+    },
+
+    users: async (_, args) => {
+      const { findManyArgs, toConnection } = parsePaginationArgs(args);
+
+      const [totalCount, users] = await Promise.all([
+        prisma.user.count(),
+        prisma.user.findMany(findManyArgs),
+      ]);
+
+      // add non-standard data in connection (here totalCount)
+      return { totalCount, ...toConnection(users) };
     },
   },
 };
