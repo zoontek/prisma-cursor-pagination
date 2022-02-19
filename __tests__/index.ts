@@ -1,6 +1,7 @@
 import {
   FindManyArgs,
   InvalidPaginationError,
+  MissingPaginationBoundariesError,
   parsePaginationArgs,
 } from "../src";
 
@@ -116,7 +117,7 @@ describe("forward pagination", () => {
     });
   });
 
-  test("throw error if first < 0", () => {
+  test("throw InvalidPaginationError if first < 0", () => {
     try {
       parsePaginationArgs({ first: 0 });
     } catch (error) {
@@ -192,11 +193,21 @@ describe("backward pagination", () => {
     });
   });
 
-  test("throw error if last < 0", () => {
+  test("throw InvalidPaginationError if last < 0", () => {
     try {
       parsePaginationArgs({ last: 0 });
     } catch (error) {
       expect(error).toBeInstanceOf(InvalidPaginationError);
+    }
+  });
+});
+
+describe("missing arguments", () => {
+  test("throw MissingPaginationBoundariesError if first and last are not defined", () => {
+    try {
+      parsePaginationArgs({});
+    } catch (error) {
+      expect(error).toBeInstanceOf(MissingPaginationBoundariesError);
     }
   });
 });

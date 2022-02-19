@@ -22,7 +22,7 @@ export class MissingPaginationBoundariesError extends Error {
       }connection.`,
     );
 
-    Object.setPrototypeOf(this, InvalidPaginationError.prototype);
+    Object.setPrototypeOf(this, MissingPaginationBoundariesError.prototype);
     this.name = this.constructor.name;
   }
 }
