@@ -1,4 +1,7 @@
-import { InvalidPaginationError } from "./errors";
+import {
+  InvalidPaginationError,
+  MissingPaginationBoundariesError,
+} from "./errors";
 import {
   Connection,
   FindManyArgs,
@@ -85,16 +88,5 @@ export const parsePaginationArgs = (
     };
   }
 
-  return {
-    findManyArgs: { take: 0 },
-    toConnection: () => ({
-      edges: [],
-      pageInfo: {
-        hasNextPage: false,
-        endCursor: null,
-        hasPreviousPage: false,
-        startCursor: null,
-      },
-    }),
-  };
+  throw new MissingPaginationBoundariesError(connectionName);
 };
