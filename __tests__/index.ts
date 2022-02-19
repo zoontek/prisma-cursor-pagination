@@ -116,14 +116,6 @@ describe("forward pagination", () => {
       },
     });
   });
-
-  test("throw InvalidPaginationError if first < 0", () => {
-    try {
-      parsePaginationArgs({ first: 0 });
-    } catch (error) {
-      expect(error).toBeInstanceOf(InvalidPaginationError);
-    }
-  });
 });
 
 describe("backward pagination", () => {
@@ -192,6 +184,16 @@ describe("backward pagination", () => {
       },
     });
   });
+});
+
+describe("missing arguments", () => {
+  test("throw InvalidPaginationError if first < 0", () => {
+    try {
+      parsePaginationArgs({ first: 0 });
+    } catch (error) {
+      expect(error).toBeInstanceOf(InvalidPaginationError);
+    }
+  });
 
   test("throw InvalidPaginationError if last < 0", () => {
     try {
@@ -200,9 +202,7 @@ describe("backward pagination", () => {
       expect(error).toBeInstanceOf(InvalidPaginationError);
     }
   });
-});
 
-describe("missing arguments", () => {
   test("throw MissingPaginationBoundariesError if first and last are not defined", () => {
     try {
       parsePaginationArgs({});
